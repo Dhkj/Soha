@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Miracle Network: About Us</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1><b>Miracle Network</b></h1>
+        <h2><i>Your dream hub for connecting the future.</i></h2>
+    </div>
+
+    {% if session.user_id %}
+        <nav>
+            <ul>
+                <li><a href='/profiles'>Profiles</a></li>
+                <li><a href='/friends'>Friends</a></li>
+                <li><a href='/posts'>Posts</a></li>
+                <li><a href='/chat'>Chat</a></li>
+                <li><a href='/about_us'>About Us</a></li>
+                <li><a href='/contact_us'>Contact Us</a></li>
+                <li><a href='/logout'>Logout</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2><i>Our contact information will be added here soon!</i></h2>
+        </div>
+    {% else %}
+        <nav>
+            <ul>
+                <li><a href='/'>Front Page</a></li>
+                <li><a href='/register'>Register</a></li>
+                <li><a href='/about_us'>About Us</a></li>
+                <li><a href='/contact_us'>Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2><i>Our contact information will be added here soon!</i></h2>
+        </div>
+    {% endif %}
+</body>
