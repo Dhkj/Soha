@@ -1,0 +1,44 @@
+body {
+    margin: auto;
+    max-width: 60em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: gray;
+}
+
+nav li {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(139, 253, 114);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.header {
+    background: rgb(139, 253, 114);
+    font-weight: bold;
+    padding: 1em 3em;
+    font-size: 2em;
+    border-radius: .5em;
+    margin-top: .5em;
+}
+
+div h1 {
+    color: rgb(120, 34, 220)
+}
+
+nav ul {
+    padding: 0;
+    margin: .5em;
+    text-align: center;
+}
+
+.content {
+    background: rgb(139, 253, 114);
+    padding: 1.5em 2em;
+    border-radius: .5em
+ }
+
+nav li a {
+    text-decoration: none;
+    color: #000;
+}
