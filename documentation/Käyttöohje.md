@@ -44,7 +44,7 @@ Web-ohjelmiston valikosta ei-kirjautunut käyttäjä voi valita ja avata neljä 
 2) Register
     - Käyttäjä voi rekisteröidä uuden tunnuksen ja salasanan.
     - Rekisteröinti jo olemassa olevalla tunnuksella ei ole mahdollista.
-    - Salasana tulee syöttää kahteen kertaan. Mikäli salasanat eivät täsmää rekisteröinti keskeytyy ja tulee suorittaa uudestaan.
+    - Salasana tulee syöttää kahteen kertaan. Mikäli salasanat eivät täsmää, rekisteröinti keskeytyy ja tulee suorittaa uudestaan.
 3) About Us
     - Tietoa ohjelmistosta ja sivustosta.
 4) Contact Us
