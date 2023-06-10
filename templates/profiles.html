@@ -26,7 +26,38 @@
         </nav>
 
         <div class="content">
-            <h2><i>You will be able to view and manage your profiles here soon!</i></h2>
+            {% if session.profile_name %}
+                <h2>Welcome to {{ session.profile_name }}'s profile front page!</h2>
+                <h2><i>You will be able to view and manage your profile information here soon, including friends, photos and e.g. see the number of your posts!</i></h2>
+
+                <form action="/profiles" method="POST">
+                    <label for="change_profile"><b>Click here to change to another profile:</b></label>
+                    <input type="hidden" name="form_type" value="change_profile">
+                    <input type="submit" value="Change profile">
+                </form>
+
+            {% else %}
+                <h2>Here you can manage your profiles!</h2>
+                
+                <form action="/profiles" method="POST">
+                    <label for="selected_profile">Select profile</label>
+                    <input type="text" name="selected_profile" id="selected_profile" list="profile_list">
+                    <input type="hidden" name="form_type" value="selected_profile">
+                    <datalist id="profile_list">
+                        {% for profile in profiles %}
+                            <option>{{ profile[1] }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" value="Select Profile">
+                </form>
+
+                <form action="/profiles" method="POST">
+                    <label for="profile_name">New profile name:</label>
+                    <input type="text" name="profile_name">
+                    <input type="hidden" name="form_type" value="profile_name">
+                    <input type="submit" value="Add new profile">
+                </form>
+            {% endif %}
         </div>
     {% else %}
         <nav>

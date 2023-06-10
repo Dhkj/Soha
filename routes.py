@@ -1,12 +1,41 @@
 from app import app
 from flask import render_template, request, redirect
 #import messages, users
-import users
+import users, profiles
 
 @app.route("/")
 #@app.route("/profile")
 def index():
+    #profiles.get_profiles()
     return render_template("index.html")
+
+@app.route("/profiles", methods=["GET", "POST"])
+#@app.route("/profiles/<int:profile_id>", methods=["GET", "POST"])
+def profiles_page():
+    if request.method == "GET":
+        return render_template("profiles.html", profiles=profiles.get_profiles()) #profiles here ok? no confusion?
+    if request.method == "POST":
+        if request.form["form_type"] == "selected_profile":
+            selected_profile = request.form["selected_profile"]
+
+            if len(selected_profile) == 0:
+                return render_template("error.html", message="No profile selected!") 
+                       
+            profiles.set_session_profile(selected_profile) #Change to use profile_id?            
+            return redirect("/profiles")
+        
+        elif request.form["form_type"] == "profile_name":
+            profile_name = request.form["profile_name"]
+            if len(profile_name) < 2:
+                return render_template("error.html", message="Profile name is too short! Please give a profile name of at least two characters in length!")
+            if profiles.add_profile(profile_name):
+                return redirect("/profiles")
+            else:
+                return render_template("error.html", message="Given profile name already exists!") #"Error message // you have not logged in? / profilename already taken??")
+
+        elif request.form["form_type"] == "change_profile":
+            profiles.delete_session_profile()
+            return redirect("/profiles")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -59,10 +88,12 @@ def about_us():
 def contact_us():
     return render_template("contact_us.html")
 
+'''
 @app.route("/profiles")
-def profiles():
+#def profiles():
+def profiles_page():
     return render_template("profiles.html")
-
+'''
 @app.route("/friends")
 def friends():
     return render_template("friends.html")
