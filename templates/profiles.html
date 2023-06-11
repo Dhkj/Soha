@@ -35,19 +35,17 @@
                     <input type="hidden" name="form_type" value="change_profile">
                     <input type="submit" value="Change profile">
                 </form>
-
             {% else %}
                 <h2>Here you can manage your profiles!</h2>
                 
                 <form action="/profiles" method="POST">
-                    <label for="selected_profile">Select profile</label>
-                    <input type="text" name="selected_profile" id="selected_profile" list="profile_list">
+                    <label for="selected_profile">Select profile:</label>                    
                     <input type="hidden" name="form_type" value="selected_profile">
-                    <datalist id="profile_list">
+                    <select name="selected_profile" id="profile_list">
                         {% for profile in profiles %}
                             <option>{{ profile[1] }}</option>
                         {% endfor %}
-                    </datalist>
+                    </select>
                     <input type="submit" value="Select Profile">
                 </form>
 
@@ -59,14 +57,13 @@
                 </form>
 
                 <form action="/profiles" method="POST">
-                    <label for="delete_profile">Delete profile</label>
-                    <input type="text" name="delete_profile" id="delete_profile" list="profile_list2">
+                    <label for="delete_profile">Delete profile:</label>                    
                     <input type="hidden" name="form_type" value="delete_profile">
-                    <datalist id="profile_list2">
+                    <select name="delete_profile" id="profile_list2">
                         {% for profile in profiles %}
                             <option>{{ profile[1] }}</option>
                         {% endfor %}
-                    </datalist>
+                    </select>
                     <input type="submit" value="Delete profile">
                 </form>
             {% endif %}
