@@ -31,6 +31,10 @@ def register(username, password):
 
 def logout():
     del session["user_id"]
+    try:
+        del session["profile_name"]
+    except:
+        pass
 
 def input_validator(username, password):
     return username_input_validator(username) and password_input_validator(password)

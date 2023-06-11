@@ -57,6 +57,18 @@
                     <input type="hidden" name="form_type" value="profile_name">
                     <input type="submit" value="Add new profile">
                 </form>
+
+                <form action="/profiles" method="POST">
+                    <label for="delete_profile">Delete profile</label>
+                    <input type="text" name="delete_profile" id="delete_profile" list="profile_list2">
+                    <input type="hidden" name="form_type" value="delete_profile">
+                    <datalist id="profile_list2">
+                        {% for profile in profiles %}
+                            <option>{{ profile[1] }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" value="Delete profile">
+                </form>
             {% endif %}
         </div>
     {% else %}

@@ -19,10 +19,14 @@ def profiles_page():
             selected_profile = request.form["selected_profile"]
 
             if len(selected_profile) == 0:
-                return render_template("error.html", message="No profile selected!") 
-                       
-            profiles.set_session_profile(selected_profile) #Change to use profile_id?            
-            return redirect("/profiles")
+                return render_template("error.html", message="No profile selected!")
+
+            # No longer needed if profiles.html changed to use select?:
+            if profiles.check_profile_exists(selected_profile):
+                profiles.set_session_profile(selected_profile) #Change to use profile_id?            
+                return redirect("/profiles")
+            else:
+                return render_template("error.html", message="We are sorry! You do not have a profile with the selected profile name!")
         
         elif request.form["form_type"] == "profile_name":
             profile_name = request.form["profile_name"]
@@ -35,6 +39,12 @@ def profiles_page():
 
         elif request.form["form_type"] == "change_profile":
             profiles.delete_session_profile()
+            return redirect("/profiles")
+        
+        elif request.form["form_type"] == "delete_profile":
+            profile_name_to_be_deleted = request.form["delete_profile"]
+            # Add checks whether deleted profile name belongs/exists for the user and whether deletion was successfull? -> error msg?
+            profiles.delete_profile(profile_name_to_be_deleted)
             return redirect("/profiles")
 
 @app.route("/register", methods=["GET", "POST"])
