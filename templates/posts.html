@@ -27,27 +27,32 @@
 
         <div class="content">
             <h1>Here you can see all posts and send new posts!:</h1>
+            
+            {% if session.profile_name %}
+                <h2>Add a new post:</h2>
 
-            <h2>Add a new post:</h2>
-
-            <form action="/posts" method="POST">
-                <label for="post_content">New post content:</label>
-                <textarea name="post_content" rows="2" cols="50"></textarea>
-                <input type="hidden" name="post_type" value="new_post">
-                <input type="submit" value="Send">
-            </form>
-
+                <form action="/posts" method="POST">
+                    <label for="post_content">New post content:</label>
+                    <textarea name="post_content" rows="2" cols="50"></textarea>
+                    <input type="hidden" name="post_type" value="new_post">
+                    <input type="submit" value="Send">
+                </form>
+            {% endif %}
+            
             <h2>All posts:</h2>
 
-            {% for post in all_posts %}
+            {% for post in all_posts_and_likes %}
                 <b> {{ post[1] }}: </b><br>
                 {{ post[2] }}<br>
                 <i> {{ post[3].strftime("%Y-%m-%d %H:%M:%S") }} </i><br>
-                <form action="/posts" method="POST">
-                    <input type="hidden" name="post_type" value="like">
-                    <input type="hidden" name="liked_post_id" value="{{ post[0] }}">
-                    <input type="submit" value="Like">
-                </form>
+                {% if session.profile_name %}
+                    <form action="/posts" method="POST">
+                        <input type="hidden" name="post_type" value="like">
+                        <input type="hidden" name="liked_post_id" value="{{ post[0] }}">
+                        <input type="submit" value="Like">
+                    </form>
+                {% endif %}
+                <i>Likes: {{ post[4] }}</i>
                 {% if session.profile_name == post[1] %}
                     <form action="/posts" method="POST">
                         <input type="hidden" name="post_type" value="delete_post">

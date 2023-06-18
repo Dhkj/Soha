@@ -171,8 +171,10 @@ def chat():
 @app.route("/posts", methods=["GET", "POST"])
 def posts():
     if request.method == "GET":
-        all_posts = posts_service.get_all_posts()
-        return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
+        #add if posts_service.get_all_posts_and_likes() and error handling 
+        all_posts_and_likes = posts_service.get_all_posts_and_likes()
+        #Add count to html
+        return render_template("posts.html", count=len(all_posts_and_likes), all_posts_and_likes=all_posts_and_likes)
     if request.method == "POST":
         if request.form["post_type"] == "delete_post":
             deleted_post_id = request.form["deleted_post_id"]

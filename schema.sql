@@ -49,7 +49,7 @@ CREATE TABLE likes (
     profile_id INTEGER REFERENCES profiles,
     post_id INTEGER REFERENCES posts,
     comment_id INTEGER REFERENCES comments,
-    likes boolean,
+    likes boolean DEFAULT False,
     sent_at TIMESTAMP
 );
 

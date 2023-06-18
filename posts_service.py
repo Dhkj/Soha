@@ -4,6 +4,7 @@ from flask import session
 
 #Todo: add functinality to get posts in batches of certain size.
 
+#No longer in use.
 def get_all_posts():
     try:
         user_id = session["user_id"]
@@ -23,6 +24,28 @@ def get_all_posts():
         return False
 
     return all_posts
+
+def get_all_posts_and_likes():
+    try:
+        user_id = session["user_id"]
+    except:
+        return False
+    '''
+    try:
+        profile_name = session["profile_name"]
+    except:
+        return False
+    '''
+
+    #sum vs count
+    sql = text("SELECT Po.id, Pr.profile_name, Po.content, Po.sent_at, COUNT(L.likes) FROM posts Po, profiles Pr, likes L WHERE Po.profile_id=Pr.id AND L.post_id=Po.id GROUP BY Po.id, Pr.profile_name, Po.content, Po.sent_at ORDER BY Po.sent_at DESC") #DESCENDING? #MAX?
+    #sql = text("SELECT Po.id, Pr.profile_name, Po.content, Po.sent_at, SUM(L.likes) FROM posts Po, profiles Pr, likes L WHERE Po.profile_id=Pr.id AND L.post_id=Po.id GROUP BY Po.id, Pr.profile_name, Po.content, Po.sent_at ORDER BY Po.sent_at DESC") #DESCENDING? #MAX?
+    result = db.session.execute(sql)
+    all_posts_and_likes = result.fetchall()
+    
+    return all_posts_and_likes
+
+#test to check multiple likes from different profiles
 
 def get_posts_by_session_profile():
     try:
@@ -58,8 +81,18 @@ def add_new_post(post_content):
     profile_id = find_profile_id_for_profile_name(profile_name)
 
     try:
-        sql = text("INSERT INTO posts (content, profile_id, sent_at) VALUES (:content, :profile_id, NOW())")
-        db.session.execute(sql, {"content":post_content, "profile_id":profile_id})
+        sql = text("INSERT INTO posts (content, profile_id, sent_at) VALUES (:content, :profile_id, NOW()) RETURNING id")
+        result = db.session.execute(sql, {"content":post_content, "profile_id":profile_id})
+        post_id = result.fetchone()[0]
+        db.session.commit()
+    except:
+        return False
+
+    #Has to be added an empty row in table likes for listing to work in /posts.
+    #Only the post creator profile has 'False' like in table likes for the post in the beginning.
+    try:
+        sql = text("INSERT INTO likes (profile_id, post_id, sent_at) VALUES (:profile_id, :post_id, NOW())")
+        db.session.execute(sql, {"profile_id":profile_id, "post_id":post_id})
         db.session.commit()
     except:
         return False
@@ -100,11 +133,28 @@ def like_post(liked_post_id):
 
     profile_id = find_profile_id_for_profile_name(profile_name)
 
+    # Checks whether already liked:
     try:
-        sql = text("INSERT INTO likes (profile_id, post_id, likes, sent_at) VALUES (:profile_id, :post_id, TRUE, NOW())") #TRUE?
-        db.session.execute(sql, {"profile_id":profile_id, "post_id":liked_post_id})
-        db.session.commit()
+        sql = text("SELECT COUNT(*) FROM likes WHERE profile_id=:profile_id AND post_id=:post_id")
+        result = db.session.execute(sql, {"profile_id":profile_id, "post_id":liked_post_id})
+        # Value 0 if no row?
+        amount_of_likes_for_the_post_by_profile = result.fetchone()[0]
     except:
-        return False
+        amount_of_likes_for_the_post_by_profile = 0
+
+    if amount_of_likes_for_the_post_by_profile:
+        try:
+            sql = text("UPDATE likes SET likes=TRUE WHERE profile_id=:profile_id AND post_id=:post_id")
+            db.session.execute(sql, {"profile_id":profile_id, "post_id":liked_post_id})
+            db.session.commit()
+        except:
+            False
+    else:
+        try:
+            sql = text("INSERT INTO likes (profile_id, post_id, likes, sent_at) VALUES (:profile_id, :post_id, TRUE, NOW())") #TRUE?
+            db.session.execute(sql, {"profile_id":profile_id, "post_id":liked_post_id})
+            db.session.commit()
+        except:
+            return False
 
     return True
