@@ -13,7 +13,13 @@ def index():
 #@app.route("/profiles/<int:profile_id>", methods=["GET", "POST"])
 def profiles_page():
     if request.method == "GET":
-        return render_template("profiles.html", profiles=profiles.get_profiles()) #profiles here ok? no confusion?
+        #return render_template("profiles.html", profiles=profiles.get_profiles()) #profiles here ok? no confusion?
+        #get_profile_information_for_selected_profile(selected_profile_name)
+        
+        print(profiles.get_profile_information_for_selected_profile())
+
+        #WHY PROFILES AND PROFILE_INFORMATION CANNOT BE ACCESSED THE SAME WAY IN PROFILES.HTML ALTHOUGH THEY ARE BOTH SAME TYPE: LIST?
+        return render_template("profiles.html", profiles=profiles.get_profiles(), profile_information=profiles.get_profile_information_for_selected_profile()) #profiles here ok? no confusion?
     if request.method == "POST":
         if request.form["form_type"] == "selected_profile":
             selected_profile = request.form["selected_profile"]
@@ -46,6 +52,56 @@ def profiles_page():
             # Add checks whether deleted profile name belongs/exists for the user and whether deletion was successfull? -> error msg?
             profiles.delete_profile(profile_name_to_be_deleted)
             return redirect("/profiles")
+
+
+
+
+
+#/profile_update? <- ??
+@app.route("/profile_update", methods=["GET", "POST"])
+def profile_update():
+    if request.method == "GET":
+        return render_template("profile_update.html")
+    if request.method == "POST":
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        email = request.form["email"]
+        institution = request.form["institution"]
+        city = request.form["city"]
+        country = request.form["country"]
+        motto = request.form["motto"]
+        hobbies = request.form["hobbies"]
+        status_text = request.form["status_text"]
+        profile_text = request.form["profile_text"]
+
+        profile_information = [first_name,
+                               last_name,
+                               email,
+                               institution,
+                               city,
+                               country,
+                               motto,
+                               hobbies,
+                               status_text,
+                               profile_text]
+
+
+        print("routes: profile_information")
+        print(profile_information)
+        print(type(profile_information))
+        print("")
+
+
+
+        profiles.update_profile(profile_information)
+
+        return redirect("/profiles")
+
+
+
+
+
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
