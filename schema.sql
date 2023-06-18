@@ -37,6 +37,19 @@ CREATE TABLE posts (
     sent_at TIMESTAMP
 );
 
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    post_id INTEGER REFERENCES posts, --delete cas
+    sent_at TIMESTAMP
+);
+
+CREATE TABLE likes (
+    id SERIAL PRIMARY KEY,
+    post_id INTEGER REFERENCES posts,
+    comment_id INTEGER REFERENCES comments,
+    sent_at TIMESTAMP
+);
 
 --CREATE TABLE profile_informations (
 --    id SERIAL PRIMARY KEY,
