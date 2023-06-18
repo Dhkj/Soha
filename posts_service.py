@@ -89,3 +89,14 @@ def delete_post(deleted_post_id):
     #    del session["profile_name"]
 
     return True
+
+def like_post(liked_post_id):
+    #Add checks for the session user and profile?
+    try:
+        sql = text("INSERT INTO likes (post_id, sent_at) VALUES (:post_id, NOW())")
+        db.session.execute(sql, {"post_id":liked_post_id})
+        db.session.commit()
+    except:
+        return False
+
+    return True
