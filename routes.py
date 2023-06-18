@@ -175,8 +175,11 @@ def posts():
         return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
     if request.method == "POST":
         if request.form["post_type"] == "delete_post":
-            #posts_service.delete_post() #to be implemented
-            return redirect("/posts")
+            deleted_post_id = request.form["deleted_post_id"]
+            if posts_service.delete_post(deleted_post_id):
+                return redirect("/posts")
+            else:
+                return render_template("error.html", message='We are sorry! The deletion was unsuccessful. Please return to the previous page and try again!')
         else:
             post_content = request.form["post_content"]
             if post_content == "":

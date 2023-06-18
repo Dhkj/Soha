@@ -75,3 +75,17 @@ def find_profile_id_for_profile_name(profile_name):
         return False
     
     return id_for_profile_name
+
+def delete_post(deleted_post_id):
+    try:
+        sql = text("DELETE FROM posts WHERE id=:post_id") #RETURNING COUNT DELETED??
+        db.session.execute(sql, {"post_id":deleted_post_id})
+        db.session.commit()
+        #ADD FUNC TO VERIFY A DELETION WAS DONE -> IF NOT ERROR MSG
+    except: #EVER EXCEPTS?
+        return False
+    
+    #if session["profile_name"] == profile_name: # Not needed?
+    #    del session["profile_name"]
+
+    return True
