@@ -46,8 +46,10 @@ CREATE TABLE comments (
 
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
+    profile_id INTEGER REFERENCES profiles,
     post_id INTEGER REFERENCES posts,
     comment_id INTEGER REFERENCES comments,
+    likes boolean,
     sent_at TIMESTAMP
 );
 
