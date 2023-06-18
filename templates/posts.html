@@ -41,7 +41,14 @@
             {% for post in all_posts %}
                 <b> {{ post[0] }}: </b><br>
                 {{ post[1] }}<br>
-                <i> {{ post[2].strftime("%Y-%m-%d %H:%M:%S") }} </i><br><br>
+                <i> {{ post[2].strftime("%Y-%m-%d %H:%M:%S") }} </i><br>
+                {% if session.profile_name == post[0] %}
+                    <form action="/posts" method="POST">
+                        <input type="hidden" name="delete_post" value="delete_post">
+                        <input type="submit" value="Delete">
+                    </form>
+                {% endif %}
+                <br><br>
             {% endfor %}
         </div>
     {% else %}
