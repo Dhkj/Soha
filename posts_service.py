@@ -16,7 +16,7 @@ def get_all_posts():
         return False
     '''
     try:
-        sql = text("SELECT Pr.profile_name, Po.content, Po.sent_at FROM posts Po, profiles Pr WHERE Po.profile_id=Pr.id ORDER BY Po.sent_at DESC") #DESCENDING? #MAX?
+        sql = text("SELECT Po.id, Pr.profile_name, Po.content, Po.sent_at FROM posts Po, profiles Pr WHERE Po.profile_id=Pr.id ORDER BY Po.sent_at DESC") #DESCENDING? #MAX?
         result = db.session.execute(sql) #ok? #, {"profile_name":profile_name})
         all_posts = result.fetchall()
     except:
@@ -36,8 +36,7 @@ def get_posts_by_session_profile():
         return False
 
     try:
-        #sql = text("SELECT id, profile_name, created FROM profiles WHERE user_id=:user_id")
-        sql = text("SELECT Pr.profile_name, Po.content, Po.sent_at FROM posts Po, profiles Pr WHERE Po.profile_id=Pr.id AND Pr.profile_name=:profile_name ORDER BY Po.sent_at DESC") #DESCENDING?
+        sql = text("SELECT Po.id, Pr.profile_name, Po.content, Po.sent_at FROM posts Po, profiles Pr WHERE Po.profile_id=Pr.id AND Pr.profile_name=:profile_name ORDER BY Po.sent_at DESC") #DESCENDING?
         result = db.session.execute(sql, {"profile_name":profile_name})
         posts_by_session_profile = result.fetchall()
     except:
