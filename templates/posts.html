@@ -43,6 +43,11 @@
                 <b> {{ post[1] }}: </b><br>
                 {{ post[2] }}<br>
                 <i> {{ post[3].strftime("%Y-%m-%d %H:%M:%S") }} </i><br>
+                <form action="/posts" method="POST">
+                    <input type="hidden" name="post_type" value="like">
+                    <input type="hidden" name="liked_post_id" value="{{ post[0] }}">
+                    <input type="submit" value="Like">
+                </form>
                 {% if session.profile_name == post[1] %}
                     <form action="/posts" method="POST">
                         <input type="hidden" name="post_type" value="delete_post">

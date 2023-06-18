@@ -180,6 +180,14 @@ def posts():
                 return redirect("/posts")
             else:
                 return render_template("error.html", message='We are sorry! The deletion was unsuccessful. Please return to the previous page and try again!')
+            
+        elif request.form["post_type"] == "like":
+            liked_post_id = request.form["liked_post_id"]
+            if posts_service.like_post(liked_post_id):
+                return redirect("/posts")
+            else:
+                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!') 
+
         else:
             post_content = request.form["post_content"]
             if post_content == "":
