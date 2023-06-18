@@ -32,6 +32,12 @@ CREATE TABLE profile_informations (
 --created TIMESTAMP
 
 
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    user_id INTEGER REFERENCES users,
+    sent_at TIMESTAMP
+)
 
 
 --CREATE TABLE profile_informations (
