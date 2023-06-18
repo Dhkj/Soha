@@ -168,10 +168,15 @@ def friends():
 def chat():
     return render_template("chat.html")
 
-@app.route("/posts")
+@app.route("/posts", methods=["GET", "POST"])
 def posts():
-    all_posts = posts_service.get_all_posts()
-    return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
+    if request.method == "GET":
+        all_posts = posts_service.get_all_posts()
+        return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
+    if request.method == "POST":
+        post_content = request.form["post_content"]
+        # posts_service.add_new_post(post_content) #to be implemented
+        return redirect("/posts")
 
 
 
