@@ -13,8 +13,6 @@ CREATE TABLE profiles (
     created TIMESTAMP
 );
 
-
-
 CREATE TABLE profile_informations (
     id SERIAL PRIMARY KEY,
     profile_id INTEGER UNIQUE REFERENCES profiles,
@@ -31,13 +29,13 @@ CREATE TABLE profile_informations (
 );
 --created TIMESTAMP
 
-
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    user_id INTEGER REFERENCES users,
+    --user_id INTEGER REFERENCES users, --updated
+    profile_id INTEGER REFERENCES profiles, --updated
     sent_at TIMESTAMP
-)
+);
 
 
 --CREATE TABLE profile_informations (

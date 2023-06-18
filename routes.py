@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 #import messages, users
-import users, profiles
+import users, profiles, posts_service
 
 @app.route("/")
 #@app.route("/profile")
@@ -170,7 +170,8 @@ def chat():
 
 @app.route("/posts")
 def posts():
-    return render_template("posts.html")
+    all_posts = posts_service.get_all_posts()
+    return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
 
 
 

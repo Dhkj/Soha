@@ -26,7 +26,13 @@
         </nav>
 
         <div class="content">
-            <h2><i>You will be able to see posts from your friends here soon!</i></h2>
+            <h2>All posts:</h2>
+
+            {% for post in all_posts %}
+                <b> {{ post[0] }}: </b><br>
+                {{ post[1] }}<br>
+                <i> {{ post[2].strftime("%Y-%m-%d %H:%M:%S") }} </i><br><br>
+            {% endfor %}
         </div>
     {% else %}
         <nav>
