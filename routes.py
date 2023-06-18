@@ -175,6 +175,8 @@ def posts():
         return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
     if request.method == "POST":
         post_content = request.form["post_content"]
+        if post_content == "":
+            return render_template("error.html", message='We are sorry! Your new post was empty! Please return to the previous page and try again!')
         if posts_service.add_new_post(post_content):
             return redirect("/posts")
         else:
