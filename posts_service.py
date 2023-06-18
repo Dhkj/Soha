@@ -44,3 +44,35 @@ def get_posts_by_session_profile():
         return False
 
     return posts_by_session_profile
+
+def add_new_post(post_content):
+    try:
+        user_id = session["user_id"]
+    except:
+        return False
+    
+    try:
+        profile_name = session["profile_name"]
+    except:
+        return False
+    
+    profile_id = find_profile_id_for_profile_name(profile_name)
+
+    try:
+        sql = text("INSERT INTO posts (content, profile_id, sent_at) VALUES (:content, :profile_id, NOW())")
+        db.session.execute(sql, {"content":post_content, "profile_id":profile_id})
+        db.session.commit()
+    except:
+        return False
+
+    return True
+    
+def find_profile_id_for_profile_name(profile_name):
+    try:
+        sql = text("SELECT id FROM profiles WHERE profile_name=:profile_name")
+        result = db.session.execute(sql, {"profile_name":profile_name})
+        id_for_profile_name = result.fetchone()[0]
+    except:
+        return False
+    
+    return id_for_profile_name

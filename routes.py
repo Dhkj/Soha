@@ -175,10 +175,10 @@ def posts():
         return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
     if request.method == "POST":
         post_content = request.form["post_content"]
-        # posts_service.add_new_post(post_content) #to be implemented
-        return redirect("/posts")
-
-
+        if posts_service.add_new_post(post_content):
+            return redirect("/posts")
+        else:
+            return render_template("error.html", message='We are sorry! Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')
 
 '''
 @app.route("/")
