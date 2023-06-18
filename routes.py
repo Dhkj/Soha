@@ -174,13 +174,17 @@ def posts():
         all_posts = posts_service.get_all_posts()
         return render_template("posts.html", count=len(all_posts), all_posts=all_posts)
     if request.method == "POST":
-        post_content = request.form["post_content"]
-        if post_content == "":
-            return render_template("error.html", message='We are sorry! Your new post was empty! Please return to the previous page and try again!')
-        if posts_service.add_new_post(post_content):
+        if request.form["post_type"] == "delete_post":
+            #posts_service.delete_post() #to be implemented
             return redirect("/posts")
         else:
-            return render_template("error.html", message='We are sorry! Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')
+            post_content = request.form["post_content"]
+            if post_content == "":
+                return render_template("error.html", message='We are sorry! Your new post was empty! Please return to the previous page and try again!')
+            elif posts_service.add_new_post(post_content):
+                return redirect("/posts")
+            else:
+                return render_template("error.html", message='We are sorry! Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')
 
 '''
 @app.route("/")
