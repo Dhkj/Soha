@@ -83,14 +83,32 @@ def register():
         return render_template("register.html")
     if request.method == "POST":
         username = request.form["username"]
+        if len(username) < 5:
+            return render_template("error.html", \
+                                   message="We are sorry! The given username was too short. \
+                                    Please return to the previous page and choose a username at least 5 charaters in length!")
+        elif len(username) > 30:
+            return render_template("error.html", \
+                                   message="We are sorry! The given username was too long. \
+                                    Please return to the previous page and choose a username no more than 30 charaters in length!")
         password1 = request.form["password1"]
+        if len(password1) < 5:
+            return render_template("error.html", \
+                                   message="We are sorry! The chosen password was too short. \
+                                    Please return to the previous page and choose a password at least 5 charaters in length!")
+        elif len(password1) > 30:
+            return render_template("error.html", \
+                                   message="We are sorry! The given password was too long. \
+                                    Please return to the previous page and choose a password no more than 30 charaters in length!")
         password2 = request.form["password2"]
         if password1 != password2:
-            return render_template("error.html", message='We are sorry! The given two passwords do not match. Please return to the previous page and try again!')
+            return render_template("error.html", message="We are sorry! The given two passwords do not match. \
+                                   Please return to the previous page and try again!")
         if users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html", message='We are sorry! The registration was unsuccessful. Please return to the previous page and try again!')
+            return render_template("error.html", message="We are sorry! The registration was unsuccessful. \
+                                   Please return to the previous page and try again!")
 
 #@app.route("/login", methods=["GET", "POST"]) -> GET redirects to Front Page?
 @app.route("/login", methods=["POST"])
