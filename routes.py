@@ -114,12 +114,19 @@ def register():
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
+    if len(username) == 0:
+        return render_template("error.html", message='We are sorry! \
+                               No username was entered. Please return to the previous page and try again!')
     password = request.form["password"]
+    if len(password) == 0:
+        return render_template("error.html", message='We are sorry! \
+                               No password was entered. Please return to the previous page and try again!')
     if users.login(username, password):
         return redirect("/")
         #return redirect("/profile")?
     else:
-        return render_template("error.html", message='We are sorry! The login was unsuccessful. Please return to the previous page and try again!')
+        return render_template("error.html", message='We are sorry! \
+                               The given username and password do not match. Please return to the previous page and try again!')
 
     '''
     if request.method == "GET":
