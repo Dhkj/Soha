@@ -8,14 +8,14 @@ CREATE TABLE users (
 
 CREATE TABLE profiles (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     profile_name TEXT UNIQUE NOT NULL,
     created TIMESTAMP
 );
 
 CREATE TABLE profile_informations (
     id SERIAL PRIMARY KEY,
-    profile_id INTEGER UNIQUE REFERENCES profiles,
+    profile_id INTEGER UNIQUE REFERENCES profiles ON DELETE CASCADE,
     first_name TEXT,
     last_name TEXT,
     email TEXT,
@@ -27,28 +27,28 @@ CREATE TABLE profile_informations (
     status_text TEXT,
     profile_text TEXT
 );
---created TIMESTAMP
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    --user_id INTEGER REFERENCES users, --updated
-    profile_id INTEGER REFERENCES profiles, --updated
+    profile_id INTEGER REFERENCES profiles ON DELETE CASCADE, --necessary?
     sent_at TIMESTAMP
 );
 
+-- Currently not implemented:
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    post_id INTEGER REFERENCES posts, --delete cas
+    profile_id INTEGER REFERENCES profiles ON DELETE CASCADE,
+    post_id INTEGER REFERENCES posts ON DELETE CASCADE,
     sent_at TIMESTAMP
 );
 
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
-    profile_id INTEGER REFERENCES profiles,
-    post_id INTEGER REFERENCES posts,
-    comment_id INTEGER REFERENCES comments,
+    profile_id INTEGER REFERENCES profiles ON DELETE CASCADE,
+    post_id INTEGER REFERENCES posts ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comments ON DELETE CASCADE, -- Currently not implemented.
     likes boolean DEFAULT False,
     sent_at TIMESTAMP
 );
@@ -69,6 +69,7 @@ CREATE TABLE likes (
     --created TIMESTAMP
 --);
 
+-- Currently not implemented:
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     content TEXT,
