@@ -40,9 +40,52 @@ nav ul {
     background: rgb(238, 136, 206);
     padding: 1.5em 2em;
     border-radius: .5em
- }
+}
 
 nav li a {
     text-decoration: none;
     color: #000;
+}
+
+form {
+    display: grid;
+    max-width: 30em;
+    grid-template-columns: 9em 10em 10em;
+    grid-row-gap: .1em;
+}
+
+div #profile_update_form {
+    display: grid;
+    max-width: 40em;
+    grid-template-columns: 20em 10em 10em;
+    grid-row-gap: .1em;
+}
+
+div #change_profile_form {
+    display: grid;
+    max-width: 40em;
+    grid-template-columns: 20em 10em 10em;
+    grid-row-gap: .1em;
+}
+
+.profile_informations {
+    display: grid;
+    max-width: 30em;
+    grid-template-columns: 6em 24em;
+    grid-row-gap: .1em;
+}
+
+div #login_form {
+    display: grid;
+    max-width: 15.2em;
+    grid-template-columns: 5.2em 10em;
+    grid-row-gap: .1em;
+}
+
+div #register_form {
+    display: grid;
+    max-width: 18.5em;
+    grid-template-columns: 8.5em 10em;
+    grid-row-gap: .1em;
+    text-align: left;
 }

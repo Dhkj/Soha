@@ -30,28 +30,44 @@
                 <h2>Welcome to {{ session.profile_name }}'s profile front page!</h2>
                 <h2><i>You will be able to view and manage your profile information here soon, including friends, photos and e.g. see the number of your posts!</i></h2>
 
+                
                 <h2>{{ session.profile_name }}'s profile information:</h2>
 
-                <b>First name:</b> <i>{{ profile_information[0][0] }}</i><br>
-                <b>Last name:</b> <i>{{ profile_information[0][1] }}</i><br>
-                <b>email:</b> <i>{{ profile_information[0][2] }}</i><br>
-                <b>Institution:</b> <i>{{ profile_information[0][3] }}</i><br>
-                <b>City:</b> <i>{{ profile_information[0][4] }}</i><br>
-                <b>Country:</b> <i>{{ profile_information[0][5] }}</i><br>
-                <b>Motto:</b> <i>{{ profile_information[0][6] }}</i><br>
-                <b>Hobbies:</b> <i>{{ profile_information[0][7] }}</i><br>
-                <b>Status text:</b> <i>{{ profile_information[0][8] }}</i><br>
-                <b>Profile text:</b> <i>{{ profile_information[0][9] }}</i><br><br>
 
-                <form action="/profile_update" method="GET">
+                <div class="profile_informations">
+                    <b>First name:</b> <i>{{ profile_information[0][0] }}</i>
+                    <b>Last name:</b> <i>{{ profile_information[0][1] }}</i>
+                    <b>email:</b> <i>{{ profile_information[0][2] }}</i>
+                    <b>Institution:</b> <i>{{ profile_information[0][3] }}</i>
+                    <b>City:</b> <i>{{ profile_information[0][4] }}</i>
+                    <b>Country:</b> <i>{{ profile_information[0][5] }}</i>
+                    <b>Motto:</b> <i>{{ profile_information[0][6] }}</i>
+                    <b>Hobbies:</b> <i>{{ profile_information[0][7] }}</i>
+                    <b>Status text:</b> <i>{{ profile_information[0][8] }}</i>
+                    <b>Profile text:</b> <i>{{ profile_information[0][9] }}</i><br>
+
+                </div>
+
+
+
+
+
+
+
+
+                <form id="profile_update_form" action="/profile_update" method="GET">
                     <label for="change_profile"><b>Update your profile information here!:</b></label>
-                    <input type="submit" value="Update profile">
+                    <input id="update_profile_button" type="submit" value="Update profile">
                 </form>
-                
-                <form action="/profiles" method="POST">
+
+
+
+
+
+                <form id="change_profile_form" action="/profiles" method="POST">
                     <label for="change_profile"><b>Click here to change to another profile:</b></label>
                     <input type="hidden" name="form_type" value="change_profile">
-                    <input type="submit" value="Change profile">
+                    <input id="change_profile_button" type="submit" value="Change profile">
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             {% else %}
