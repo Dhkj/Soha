@@ -47,13 +47,12 @@
                     <label for="change_profile"><b>Update your profile information here!:</b></label>
                     <input type="submit" value="Update profile">
                 </form>
-
-
-
+                
                 <form action="/profiles" method="POST">
                     <label for="change_profile"><b>Click here to change to another profile:</b></label>
                     <input type="hidden" name="form_type" value="change_profile">
                     <input type="submit" value="Change profile">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             {% else %}
                 <h2>Here you can manage your profiles!</h2>
@@ -67,6 +66,7 @@
                         {% endfor %}
                     </select>
                     <input type="submit" value="Select Profile">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
 
                 <form action="/profiles" method="POST">
@@ -74,6 +74,7 @@
                     <input type="text" name="profile_name">
                     <input type="hidden" name="form_type" value="profile_name">
                     <input type="submit" value="Add new profile">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
 
                 <form action="/profiles" method="POST">
@@ -85,6 +86,7 @@
                         {% endfor %}
                     </select>
                     <input type="submit" value="Delete profile">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             {% endif %}
         </div>

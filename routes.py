@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session, abort
 import users, profiles, posts_service
 
 @app.route("/")
@@ -14,9 +14,10 @@ def profiles_page():
     if request.method == "GET":
         return render_template("profiles.html", profiles=profiles.get_profiles(), profile_information=profiles.get_profile_information_for_selected_profile())
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
         if request.form["form_type"] == "selected_profile":
             selected_profile = request.form["selected_profile"]
-
             if len(selected_profile) == 0:
                 return render_template("error.html", message="No profile selected!")
 
