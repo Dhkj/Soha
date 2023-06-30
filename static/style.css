@@ -75,13 +75,6 @@ div #change_profile_form {
     grid-row-gap: .1em;
 }
 
-div #login_form {
-    display: grid;
-    max-width: 15.2em;
-    grid-template-columns: 5.2em 10em;
-    grid-row-gap: .1em;
-}
-
 div #register_form {
     display: grid;
     max-width: 18.5em;
@@ -103,5 +96,29 @@ form #register_button {
 }
 
 form #register_button:hover {
+    background-color: blueviolet;
+}
+
+div #login_form {
+    display: grid;
+    max-width: 15.2em;
+    grid-template-columns: 5.2em 10em;
+    grid-row-gap: .1em;
+    text-align: left;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #login_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #login_button:hover {
     background-color: blueviolet;
 }
