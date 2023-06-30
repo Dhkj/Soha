@@ -30,9 +30,7 @@
                 <h2>Welcome to {{ session.profile_name }}'s profile front page!</h2>
                 <h2><i>You will be able to view and manage your profile information here soon, including friends, photos and e.g. see the number of your posts!</i></h2>
 
-                
                 <h2>{{ session.profile_name }}'s profile information:</h2>
-
 
                 <div class="profile_informations">
                     <b>First name:</b> <i>{{ profile_information[0][0] }}</i>
@@ -45,24 +43,12 @@
                     <b>Hobbies:</b> <i>{{ profile_information[0][7] }}</i>
                     <b>Status text:</b> <i>{{ profile_information[0][8] }}</i>
                     <b>Profile text:</b> <i>{{ profile_information[0][9] }}</i><br>
-
                 </div>
-
-
-
-
-
-
-
 
                 <form id="profile_update_form" action="/profile_update" method="GET">
                     <label for="change_profile"><b>Update your profile information here!:</b></label>
                     <input id="update_profile_button" type="submit" value="Update profile">
                 </form>
-
-
-
-
 
                 <form id="change_profile_form" action="/profiles" method="POST">
                     <label for="change_profile"><b>Click here to change to another profile:</b></label>
