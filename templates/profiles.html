@@ -58,38 +58,40 @@
                 </form>
             {% else %}
                 <h2>Here you can manage your profiles!</h2>
-                
-                <form action="/profiles" method="POST">
-                    <label for="selected_profile">Select profile:</label>                    
-                    <input type="hidden" name="form_type" value="selected_profile">
-                    <select name="selected_profile" id="profile_list">
-                        {% for profile in profiles %}
-                            <option>{{ profile[1] }}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Select Profile">
-                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                </form>
 
-                <form action="/profiles" method="POST">
-                    <label for="profile_name">New profile name:</label>
-                    <input type="text" name="profile_name">
-                    <input type="hidden" name="form_type" value="profile_name">
-                    <input type="submit" value="Add new profile">
-                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                </form>
+                <div class="manage_profiles_form">
+                    <form id="select_profile_form" action="/profiles" method="POST">
+                        <label for="selected_profile">Select profile:</label>                    
+                        <input type="hidden" name="form_type" value="selected_profile">
+                        <select name="selected_profile" id="select_profile_list">
+                            {% for profile in profiles %}
+                                <option>{{ profile[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        <input id="select_profile_button" type="submit" value="Select Profile">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form>
 
-                <form action="/profiles" method="POST">
-                    <label for="delete_profile">Delete profile:</label>                    
-                    <input type="hidden" name="form_type" value="delete_profile">
-                    <select name="delete_profile" id="profile_list2">
-                        {% for profile in profiles %}
-                            <option>{{ profile[1] }}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Delete profile">
-                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                </form>
+                    <form id="add_new_profile_form" action="/profiles" method="POST">
+                        <label for="profile_name">New profile name:</label>
+                        <input type="text" name="profile_name" id="add_new_profile_name" placeholder="Type new profile name">
+                        <input type="hidden" name="form_type" value="profile_name">
+                        <input id="add_new_profile_button" type="submit" value="Add new profile">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form>
+
+                    <form id="delete_profile_form" action="/profiles" method="POST">
+                        <label for="delete_profile">Delete profile:</label>                    
+                        <input type="hidden" name="form_type" value="delete_profile">
+                        <select name="delete_profile" id="delete_profile_list">
+                            {% for profile in profiles %}
+                                <option>{{ profile[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        <input id="delete_profile_button" type="submit" value="Delete profile">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form>
+                </div>
             {% endif %}
         </div>
     {% else %}

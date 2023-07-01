@@ -50,7 +50,7 @@ nav li a {
 form {
     display: grid;
     max-width: 30em;
-    grid-template-columns: 9em 10em 10em;
+    grid-template-columns: 8.5em 10.7em 10em;
     grid-row-gap: .1em;
 }
 
@@ -73,6 +73,37 @@ div #change_profile_form {
     max-width: 30em;
     grid-template-columns: 6em 24em;
     grid-row-gap: .1em;
+
+
+    
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #update_profile_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #update_profile_button:hover {
+    background-color: blueviolet;
+}
+
+form #change_profile_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #change_profile_button:hover {
+    background-color: blueviolet;
 }
 
 div #register_form {
@@ -120,5 +151,184 @@ form #login_button {
 }
 
 form #login_button:hover {
+    background-color: blueviolet;
+}
+
+.manage_profiles_form {
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #select_profile_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #select_profile_button:hover {
+    background-color: blueviolet;
+}
+
+form #select_profile_list {
+    display: inline-block;
+    padding: .7em 1em .5em;
+
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #add_new_profile_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #add_new_profile_button:hover {
+    background-color: blueviolet;
+}
+
+form #add_new_profile_name {
+    display: inline-block;
+    padding: .7em 1em .5em;
+
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #delete_profile_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #delete_profile_button:hover {
+    background-color: blueviolet;
+}
+
+form #delete_profile_list {
+    display: inline-block;
+    padding: .7em 1em .5em;
+
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form label, input {
+    margin: auto 0;
+}
+
+.post_table{
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.post_sender{
+    max-width: auto;
+    padding: .7em 1em .5em;
+    background: rgb(223, 35, 173);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.post_content{
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: white;
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.post_buttons {
+    display: grid;
+    max-width: 28.8em;
+    grid-template-columns: 9em 9em 9em;
+    grid-row-gap: .1em;
+
+
+    text-align: center;
+
+
+
+    margin: auto 0;
+}
+
+form #like_post_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #like_post_button:hover {
+    background-color: blueviolet;
+}
+
+form #delete_post_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #delete_post_button:hover {
+    background-color: blueviolet;
+}
+
+div #likes {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background-color: rgb(229, 53, 182);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+div #post_sent_at {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    
+    border-radius: .5em;
+    margin: .2em;
+    
+}
+
+.add_new_post{
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #new_post_textarea {
+    display: inline-block;
+    padding: .7em 1em .5em;
+
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #send_new_post_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #send_new_post_button:hover {
     background-color: blueviolet;
 }
