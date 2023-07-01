@@ -64,6 +64,13 @@
                                 <input id="like_post_button" type="submit" value="Like">
                                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
+
+                            <form action="/posts" method="POST">
+                                <input type="hidden" name="post_type" value="unlike">
+                                <input type="hidden" name="unliked_post_id" value="{{ post[0] }}">
+                                <input id="unlike_post_button" type="submit" value="Unlike">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                            </form>
                         {% endif %}
 
                         {% if session.profile_name == post[1] %}

@@ -190,6 +190,12 @@ def posts():
                 return redirect("/posts")
             else:
                 return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!')
+        elif request.form["post_type"] == "unlike":
+            unliked_post_id = request.form["unliked_post_id"]
+            if posts_service.unlike_post(unliked_post_id):
+                return redirect("/posts")
+            else:
+                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!')
         elif request.form["post_type"] == "new_post":
             post_content = request.form["new_post_content"]
             if post_content == "":

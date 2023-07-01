@@ -281,6 +281,18 @@ form #like_post_button:hover {
     background-color: blueviolet;
 }
 
+form #unlike_post_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #unlike_post_button:hover {
+    background-color: blueviolet;
+}
+
 form #delete_post_button {
     display: inline-block;
     padding: .7em 1em .5em;

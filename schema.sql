@@ -49,7 +49,6 @@ CREATE TABLE likes (
     profile_id INTEGER REFERENCES profiles ON DELETE CASCADE,
     post_id INTEGER REFERENCES posts ON DELETE CASCADE,
     comment_id INTEGER REFERENCES comments ON DELETE CASCADE, -- Currently not implemented.
-    likes boolean DEFAULT False,
     sent_at TIMESTAMP
 );
 
