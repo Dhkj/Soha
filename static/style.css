@@ -222,8 +222,13 @@ form #delete_profile_list {
     margin: .2em;
 }
 
-form label, input {
+form label, input, textarea {
     margin: auto 0;
+
+
+
+    padding: .7em 1em .5em;
+    border-radius: .5em;
 }
 
 .post_table{
@@ -305,7 +310,7 @@ div #post_sent_at {
     
 }
 
-.add_new_post{
+.add_new_post {
     max-width: 28.8em;
     padding: .7em 1em .5em;
     background: rgb(233, 105, 192);
@@ -330,5 +335,37 @@ form #send_new_post_button {
 }
 
 form #send_new_post_button:hover {
+    background-color: blueviolet;
+}
+
+.update_profile_information_form_class {
+    max-width: 20em;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #update_profile_information_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #update_profile_information_button:hover {
+    background-color: blueviolet;
+}
+
+form #go_back_to_profiles_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #go_back_to_profiles_button:hover {
     background-color: blueviolet;
 }

@@ -29,111 +29,51 @@
             {% if session.profile_name %}
                 <h2>Here you can modify {{ session.profile_name }}'s profile information!</h2>
 
-
-
-                <form action="/profile_update" method="POST">
-                    <label for="first_name">First name:</label>
-                    <input type="text" name="first_name"><br>
-                    <label for="last_name">Last name:</label>
-                    <input type="text" name="last_name"><br>
-
-                    <label for="email">Email:</label>
-                    <input type="text" name="email"><br>
-                    <label for="institution">Institution:</label>
-                    <input type="text" name="institution"><br>
-                    <label for="city">City:</label>
-                    <input type="text" name="city"><br>
-                    <label for="country">Country:</label>
-                    <input type="text" name="country"><br>
-
-                    <label for="motto">Motto:</label>
-                    <input type="text" name="motto"><br>
-
-                    <label for="hobbies">Hobbies:</label>
-                    <textarea name="hobbies" rows="2" cols="50"></textarea><br>
-
-                    <label for="status_text">Status text:</label>
-                    <textarea name="status_text" rows="2" cols="50"></textarea><br>
-
-                    <label for="profile_text">Profile text:</label>
-                    <textarea name="profile_text" rows="2" cols="50"></textarea><br>
-
-
+                <div class="update_profile_information_form_class">
+                    <form id="update_profile_information_form" action="/profile_update" method="POST">
+                        <label for="first_name">First name:</label>
+                        <input id="first_name_input" type="text" name="first_name"><br>
+                        
+                        <label for="last_name">Last name:</label>
+                        <input id="last_name_input" type="text" name="last_name"><br>
+                        
+                        <label for="email">Email:</label>
+                        <input id="email_input" type="text" name="email"><br>
                     
-                    <input type="submit" value="Update profile">
-                </form>
+                        <label for="institution">Institution:</label>
+                        <input id="institution_input" type="text" name="institution"><br>
+                    
+                        <label for="city">City:</label>
+                        <input id="city_input" type="text" name="city"><br>
+                    
+                        <label for="country">Country:</label>
+                        <input id="country_input" type="text" name="country"><br>
 
+                        <label for="motto">Motto:</label>
+                        <input id="motto_input" type="text" name="motto"><br>
 
+                        <label for="hobbies">Hobbies:</label>
+                        <textarea id="hobbies_input" name="hobbies" rows="2" cols="50"></textarea><br>
 
+                        <label for="status_text">Status text:</label>
+                        <textarea id="status_text_textarea" name="status_text" rows="2" cols="50"></textarea><br>
 
-                <form action="/profiles" method="GET">
-                    <input type="submit" value="Go back to profiles">
-                </form>
+                        <label for="profile_text">Profile text:</label>
+                        <textarea id="profile_text_textarea" name="profile_text" rows="2" cols="50"></textarea><br>
+                    
+                        <input id="update_profile_information_button" type="submit" value="Update profile">
+                    </form>
 
-
-
-
-
-
-
-
-                <h2>Welcome to {{ session.profile_name }}'s profile front page!</h2>
-                <h2><i>You will be able to view and manage your profile information here soon, including friends, photos and e.g. see the number of your posts!</i></h2>
-
-
-                <form action="/profile_update" method="GET">
-                    <label for="change_profile"><b>Update your profile information here!:</b></label>
-                    <input type="submit" value="Update profile">
-                </form>
-
-
-
-                <form action="/profiles" method="POST">
-                    <label for="change_profile"><b>Click here to change to another profile:</b></label>
-                    <input type="hidden" name="form_type" value="change_profile">
-                    <input type="submit" value="Change profile">
-                </form>
+                    <form action="/profiles" method="GET">
+                        <input id="go_back_to_profiles_button" type="submit" value="Go back to profiles">
+                    </form>
+                </div>
             {% else %}
                 <h2>No profile selected!</h2>
 
                 <p>
                     Please return to <a href="/profiles">profiles</a> and select a profile to modify!
                 </p>
-
-
-
-
-
-                <h2>Here you can manage your profiles!</h2>
-                
-                <form action="/profiles" method="POST">
-                    <label for="selected_profile">Select profile:</label>                    
-                    <input type="hidden" name="form_type" value="selected_profile">
-                    <select name="selected_profile" id="profile_list">
-                        {% for profile in profiles %}
-                            <option>{{ profile[1] }}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Select Profile">
-                </form>
-
-                <form action="/profiles" method="POST">
-                    <label for="profile_name">New profile name:</label>
-                    <input type="text" name="profile_name">
-                    <input type="hidden" name="form_type" value="profile_name">
-                    <input type="submit" value="Add new profile">
-                </form>
-
-                <form action="/profiles" method="POST">
-                    <label for="delete_profile">Delete profile:</label>                    
-                    <input type="hidden" name="form_type" value="delete_profile">
-                    <select name="delete_profile" id="profile_list2">
-                        {% for profile in profiles %}
-                            <option>{{ profile[1] }}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Delete profile">
-                </form>
             {% endif %}
         </div>
     {% else %}
