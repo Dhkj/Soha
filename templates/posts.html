@@ -37,6 +37,7 @@
                         <textarea id="new_post_textarea" name="new_post_content" rows="2" cols="50" placeholder="Type new post content"></textarea>
                         <input type="hidden" name="post_type" value="new_post">
                         <input id="send_new_post_button" type="submit" value="Send">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form>
                 </div>
             {% endif %}
@@ -61,6 +62,7 @@
                                 <input type="hidden" name="post_type" value="like">
                                 <input type="hidden" name="liked_post_id" value="{{ post[0] }}">
                                 <input id="like_post_button" type="submit" value="Like">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         {% endif %}
 
@@ -69,6 +71,7 @@
                                 <input type="hidden" name="post_type" value="delete_post">
                                 <input type="hidden" name="deleted_post_id" value="{{ post[0] }}">
                                 <input id="delete_post_button" type="submit" value="Delete">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         {% endif %}                
                     </div>

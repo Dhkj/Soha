@@ -176,22 +176,22 @@ def posts():
         #Add count to html
         return render_template("posts.html", count=len(all_posts_and_likes), all_posts_and_likes=all_posts_and_likes)
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)        
         if request.form["post_type"] == "delete_post":
             deleted_post_id = request.form["deleted_post_id"]
             if posts_service.delete_post(deleted_post_id):
                 return redirect("/posts")
             else:
                 return render_template("error.html", message='We are sorry! The deletion was unsuccessful. Please return to the previous page and try again!')
-            
         elif request.form["post_type"] == "like":
             liked_post_id = request.form["liked_post_id"]
             if posts_service.like_post(liked_post_id):
                 return redirect("/posts")
             else:
-                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!') 
-
-        else:
-            post_content = request.form["post_content"]
+                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!')
+        elif request.form["post_type"] == "new_post":
+            post_content = request.form["new_post_content"]
             if post_content == "":
                 return render_template("error.html", message='We are sorry! Your new post was empty! Please return to the previous page and try again!')
             elif posts_service.add_new_post(post_content):
