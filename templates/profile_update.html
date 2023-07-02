@@ -62,6 +62,7 @@
                         <textarea id="profile_text_textarea" name="profile_text" rows="2" cols="50"></textarea><br>
                     
                         <input id="update_profile_information_button" type="submit" value="Update profile">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form>
 
                     <form action="/profiles" method="GET">

@@ -46,6 +46,8 @@ def profile_update():
     if request.method == "GET":
         return render_template("profile_update.html")
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
         first_name = request.form["first_name"]
         last_name = request.form["last_name"]
         email = request.form["email"]
