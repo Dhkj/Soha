@@ -3,16 +3,14 @@ from flask import render_template, request, redirect, session, abort
 import users, profiles, posts_service
 
 @app.route("/")
-#@app.route("/profile")
 def index():
-    #profiles.get_profiles()
     return render_template("index.html")
 
 @app.route("/profiles", methods=["GET", "POST"])
-#@app.route("/profiles/<int:profile_id>", methods=["GET", "POST"])
 def profiles_page():
     if request.method == "GET":
-        return render_template("profiles.html", profiles=profiles.get_profiles(), profile_information=profiles.get_profile_information_for_selected_profile())
+        return render_template("profiles.html", profiles=profiles.get_profiles(), \
+                               profile_information=profiles.get_profile_information_for_selected_profile())
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
@@ -20,34 +18,29 @@ def profiles_page():
             selected_profile = request.form["selected_profile"]
             if len(selected_profile) == 0:
                 return render_template("error.html", message="No profile selected!")
-
-            # No longer needed if profiles.html changed to use select?:
             if profiles.check_profile_exists(selected_profile):
-                profiles.set_session_profile(selected_profile) #Change to use profile_id?            
+                profiles.set_session_profile(selected_profile)          
                 return redirect("/profiles")
             else:
-                return render_template("error.html", message="We are sorry! You do not have a profile with the selected profile name!")
-        
+                return render_template("error.html", message="We are sorry! \
+                                       You do not have a profile with the selected profile name!")        
         elif request.form["form_type"] == "profile_name":
             profile_name = request.form["profile_name"]
             if len(profile_name) < 2:
-                return render_template("error.html", message="Profile name is too short! Please give a profile name of at least two characters in length!")
+                return render_template("error.html", message="Profile name is too short! \
+                                       Please give a profile name of at least two characters in length!")
             if profiles.add_profile(profile_name):
                 return redirect("/profiles")
             else:
-                return render_template("error.html", message="Given profile name already exists!") #"Error message // you have not logged in? / profilename already taken??")
-
+                return render_template("error.html", message="Given profile name already exists!")
         elif request.form["form_type"] == "change_profile":
             profiles.delete_session_profile()
-            return redirect("/profiles")
-        
+            return redirect("/profiles")        
         elif request.form["form_type"] == "delete_profile":
             profile_name_to_be_deleted = request.form["delete_profile"]
-            # Add checks whether deleted profile name belongs/exists for the user and whether deletion was successfull? -> error msg?
             profiles.delete_profile(profile_name_to_be_deleted)
             return redirect("/profiles")
 
-#/profile_update? <- ??
 @app.route("/profile_update", methods=["GET", "POST"])
 def profile_update():
     if request.method == "GET":
@@ -111,7 +104,6 @@ def register():
             return render_template("error.html", message="We are sorry! The registration was unsuccessful. \
                                    Please return to the previous page and try again!")
 
-#@app.route("/login", methods=["GET", "POST"]) -> GET redirects to Front Page?
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
@@ -124,22 +116,9 @@ def login():
                                No password was entered. Please return to the previous page and try again!')
     if users.login(username, password):
         return redirect("/")
-        #return redirect("/profile")?
     else:
         return render_template("error.html", message='We are sorry! \
                                The given username and password do not match. Please return to the previous page and try again!')
-
-    '''
-    if request.method == "GET":
-        return render_template("login.html")
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        if users.login(username, password):
-            return redirect("/")
-        else:
-            return render_template("error.html", message="Error msg")
-    '''
 
 @app.route("/logout")
 def logout():
@@ -154,12 +133,6 @@ def about_us():
 def contact_us():
     return render_template("contact_us.html")
 
-'''
-@app.route("/profiles")
-#def profiles():
-def profiles_page():
-    return render_template("profiles.html")
-'''
 @app.route("/friends")
 def friends():
     return render_template("friends.html")
@@ -171,10 +144,10 @@ def chat():
 @app.route("/posts", methods=["GET", "POST"])
 def posts():
     if request.method == "GET":
-        #add if posts_service.get_all_posts_and_likes() and error handling 
         all_posts_and_likes = posts_service.get_all_posts_and_likes()
-        #Add count to html
-        return render_template("posts.html", count=len(all_posts_and_likes), all_posts_and_likes=all_posts_and_likes)
+        number_of_posts = len(all_posts_and_likes)
+        return render_template("posts.html", number_of_posts=number_of_posts, \
+                               all_posts_and_likes=all_posts_and_likes)
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)        
@@ -183,75 +156,71 @@ def posts():
             if posts_service.delete_post(deleted_post_id):
                 return redirect("/posts")
             else:
-                return render_template("error.html", message='We are sorry! The deletion was unsuccessful. Please return to the previous page and try again!')
+                return render_template("error.html", message='We are sorry! \
+                                       The deletion was unsuccessful. Please return to the previous page and try again!')
         elif request.form["post_type"] == "like":
             liked_post_id = request.form["liked_post_id"]
             if posts_service.like_post(liked_post_id):
                 return redirect("/posts")
             else:
-                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!')
+                return render_template("error.html", message='We are sorry! \
+                                       There was an unexpected error. Please return to the previous page and try again!')
         elif request.form["post_type"] == "unlike":
             unliked_post_id = request.form["unliked_post_id"]
             if posts_service.unlike_post(unliked_post_id):
                 return redirect("/posts")
             else:
-                return render_template("error.html", message='We are sorry! There was an unexpected error. Please return to the previous page and try again!')
+                return render_template("error.html", message='We are sorry! \
+                                       There was an unexpected error. Please return to the previous page and try again!')
         elif request.form["post_type"] == "new_post":
             post_content = request.form["new_post_content"]
             if post_content == "":
-                return render_template("error.html", message='We are sorry! Your new post was empty! Please return to the previous page and try again!')
+                return render_template("error.html", message='We are sorry! \
+                                       Your new post was empty! Please return to the previous page and try again!')            
+            if len(post_content) > 100:
+                return render_template("error.html", message='We are sorry! \
+                                       Your new post was more than 100 characters in length! Please return to the previous page and try again!')
             elif posts_service.add_new_post(post_content):
                 return redirect("/posts")
             else:
-                return render_template("error.html", message='We are sorry! Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')
+                return render_template("error.html", message='We are sorry! \
+                                       Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')
 
-'''
-@app.route("/")
-def index():
-    list = messages.get_list()
-    return render_template("index.html", count=len(list), messages=list)
-
-@app.route("/new")
-def new():
-    return render_template("new.html")
-
-@app.route("/send", methods=["POST"])
-def send():
-    content = request.form["content"]
-    if messages.send(content):
-        return redirect("/")
-    else:
-        return render_template("error.html", message="Viestin lähetys ei onnistunut")
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
+@app.route("/comments/<int:post_id>", methods=["GET", "POST"])
+def comments(post_id):
     if request.method == "GET":
-        return render_template("login.html")
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        if users.login(username, password):
-            return redirect("/")
-        else:
-            return render_template("error.html", message="Väärä tunnus tai salasana")
+        post = posts_service.get_post(post_id)
 
-@app.route("/logout")
-def logout():
-    users.logout()
-    return redirect("/")
+        if not post:
+            return render_template("error.html", message='We are sorry! \
+                                   No such post exists. Please return to the previous page and try again!')
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "GET":
-        return render_template("register.html")
+        comments = posts_service.get_comments(post_id) #Add
+        number_of_comments = len(comments)
+        return render_template("comments.html", post_id=post_id, post=post, \
+                               comments=comments, number_of_comments=number_of_comments)
     if request.method == "POST":
-        username = request.form["username"]
-        password1 = request.form["password1"]
-        password2 = request.form["password2"]
-        if password1 != password2:
-            return render_template("error.html", message="Salasanat eroavat")
-        if users.register(username, password1):
-            return redirect("/")
-        else:
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
-'''
+        post_id = request.form["post_id"]      
+        address = "/comments/" + post_id
+
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)        
+        if request.form["post_type"] == "delete_comment":
+            deleted_comment_id = request.form["deleted_comment_id"]
+
+            if posts_service.delete_comment(deleted_comment_id):
+                return redirect(address)
+            else:
+                return render_template("error.html", message='We are sorry! \
+                                       The deletion was unsuccessful. Please return to the previous page and try again!')     
+        elif request.form["post_type"] == "new_comment":
+            comment_content = request.form["new_comment_content"]
+
+            if comment_content == "":
+                return render_template("error.html", message='We are sorry! \
+                                       Your new comment was empty! Please return to the previous page and try again!')
+            elif posts_service.add_new_comment(post_id, comment_content):
+                return redirect(address)           
+            else:
+                return render_template("error.html", message='We are sorry! \
+                                       Unfortunately adding your new post was unsuccessful. Please return to the previous page and try again!')

@@ -19,11 +19,10 @@ def login(username, password):
             return False
 
 def register(username, password):
-    #if not input_validator(username, password):
-    #    return False
     hash_value = generate_password_hash(password)
     try:
-        sql = text("INSERT INTO users (username, password, created) VALUES (:username, :password, NOW())")
+        sql = text("INSERT INTO users (username, password, created) \
+                   VALUES (:username, :password, NOW())")
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
     except:
@@ -37,19 +36,3 @@ def logout():
         del session["profile_name"]
     except:
         pass
-'''
-def input_validator(username, password):
-    return username_input_validator(username) and password_input_validator(password)
-
-def username_input_validator(username):
-    if len(username) < 8:
-        return False
-    
-    return True
-
-def password_input_validator(password):
-    if len(password) < 5:
-        return False
-    
-    return True
-'''

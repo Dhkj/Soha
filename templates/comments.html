@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Miracle Network: Publish</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1><b>Miracle Network</b></h1>
+        <h2><i>Your dream hub for connecting the future.</i></h2>
+    </div>
+
+    {% if session.user_id %}
+        <nav>
+            <ul>
+                <li><a href='/profiles'>Profiles</a></li>
+                <li><a href='/friends'>Friends</a></li>
+                <li><a href='/posts'>Posts</a></li>
+                <li><a href='/chat'>Chat</a></li>
+                <li><a href='/about_us'>About Us</a></li>
+                <li><a href='/contact_us'>Contact Us</a></li>
+                <li><a href='/logout'>Logout</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h1>Here you can see a post and all its comments!</h1>
+
+            <h2>Original post:</h2>
+
+            <div class="post_table">
+                <div class="post_sender">
+                    <b> {{ post[1] }}: </b><br>
+                </div>
+
+                <div class="post_content">
+                    {{ post[2] }}<br>                
+                </div>
+
+                <label id="post_sent_at" for="post_sent_at"><i> Sent: {{ post[3].strftime("%Y-%m-%d %H:%M:%S") }} </i></label> 
+            </div>
+         
+            {% if session.profile_name %}
+                <h2>Add a new comment:</h2>
+
+                <div class="add_new_comment">
+                    <form action="/comments/{{ post_id }}" method="POST">
+                        <label for="comment_content"><b>New comment:</b></label>
+                        <textarea id="new_comment_textarea" name="new_comment_content" rows="2" cols="50" placeholder="Type new comment content"></textarea>
+                        <input type="hidden" name="post_type" value="new_comment">
+                        <input id="send_new_comment_button" type="submit" value="Send">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        <input type="hidden" name="post_id" value="{{ post_id }}">
+                    </form>
+                </div>
+            {% endif %}
+
+            <h2>All post's <i>{{ number_of_comments }}</i> comments:</h2>
+
+            {% for comment in comments %}
+                <div class="comment_table">
+                    <div class="comment_sender">
+                        <b> {{ comment[1] }}: </b><br>
+                    </div>
+
+                    <div class="comment_content">
+                        {{ comment[2] }}<br>                
+                    </div>
+                
+                    <div class="comment_buttons">
+                        {% if session.profile_name == comment[1] %}
+                            <form action="/comments/{{ post_id }}" method="POST">
+                                <input type="hidden" name="post_type" value="delete_comment">
+                                <input type="hidden" name="deleted_comment_id" value="{{ comment[0] }}">
+                                <input id="delete_comment_button" type="submit" value="Delete">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                <input type="hidden" name="post_id" value="{{ post_id }}">
+                            </form>
+                        {% endif %}                
+                    </div>
+
+                    <label id="comment_sent_at" for="comment_sent_at"><i> Sent: {{ post[3].strftime("%Y-%m-%d %H:%M:%S") }} </i></label>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    {% else %}
+        <nav>
+            <ul>
+                <li><a href='/'>Front Page</a></li>
+                <li><a href='/register'>Register</a></li>
+                <li><a href='/about_us'>About Us</a></li>
+                <li><a href='/contact_us'>Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2><i>You are not logged in! Please log in first to view this page and connect with your friends!</i></h2>      
+            <h2>Not yet a member? Join us!</h2>
+
+            <p>
+                Find more <a href="/about_us">about us</a> and <a href="/register">register</a> today to make the change!
+            </p>
+        </div>
+    {% endif %}
+</body>

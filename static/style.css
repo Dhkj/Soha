@@ -50,7 +50,7 @@ nav li a {
 form {
     display: grid;
     max-width: 30em;
-    grid-template-columns: 8.5em 10.7em 10em;
+    grid-template-columns: 9em 10.7em 10em;
     grid-row-gap: .1em;
 }
 
@@ -72,10 +72,7 @@ div #change_profile_form {
     display: grid;
     max-width: 30em;
     grid-template-columns: 6em 24em;
-    grid-row-gap: .1em;
-
-
-    
+    grid-row-gap: .1em;    
     padding: .7em 1em .5em;
     background: rgb(233, 105, 192);
     border-radius: .5em;
@@ -133,7 +130,7 @@ form #register_button:hover {
 div #login_form {
     display: grid;
     max-width: 15.2em;
-    grid-template-columns: 5.2em 10em;
+    grid-template-columns: 6em 10em;
     grid-row-gap: .1em;
     text-align: left;
     padding: .7em 1em .5em;
@@ -177,7 +174,6 @@ form #select_profile_button:hover {
 form #select_profile_list {
     display: inline-block;
     padding: .7em 1em .5em;
-
     border-radius: .5em;
     margin: .2em;
 }
@@ -197,7 +193,6 @@ form #add_new_profile_button:hover {
 form #add_new_profile_name {
     display: inline-block;
     padding: .7em 1em .5em;
-
     border-radius: .5em;
     margin: .2em;
 }
@@ -217,16 +212,12 @@ form #delete_profile_button:hover {
 form #delete_profile_list {
     display: inline-block;
     padding: .7em 1em .5em;
-
     border-radius: .5em;
     margin: .2em;
 }
 
 form label, input, textarea {
     margin: auto 0;
-
-
-
     padding: .7em 1em .5em;
     border-radius: .5em;
 }
@@ -253,6 +244,7 @@ form label, input, textarea {
     background: white;
     border-radius: .5em;
     margin: .2em;
+    text-size-adjust: auto;
 }
 
 .post_buttons {
@@ -260,12 +252,7 @@ form label, input, textarea {
     max-width: 28.8em;
     grid-template-columns: 9em 9em 9em;
     grid-row-gap: .1em;
-
-
     text-align: center;
-
-
-
     margin: auto 0;
 }
 
@@ -315,8 +302,7 @@ div #likes {
 
 div #post_sent_at {
     display: inline-block;
-    padding: .7em 1em .5em;
-    
+    padding: .7em 1em .5em;    
     border-radius: .5em;
     margin: .2em;
     
@@ -333,7 +319,6 @@ div #post_sent_at {
 form #new_post_textarea {
     display: inline-block;
     padding: .7em 1em .5em;
-
     border-radius: .5em;
     margin: .2em;
 }
@@ -379,5 +364,82 @@ form #go_back_to_profiles_button {
 }
 
 form #go_back_to_profiles_button:hover {
+    background-color: blueviolet;
+}
+
+.add_new_comment {
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: rgb(233, 105, 192);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #send_new_comment_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #send_new_comment_button:hover {
+    background-color: blueviolet;
+}
+
+div #comments {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background-color: rgb(229, 53, 182);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #comments_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #comments_button:hover {
+    background-color: blueviolet;
+}
+
+.comment_sender{
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: rgb(223, 35, 173);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.comment_content{
+    max-width: 28.8em;
+    padding: .7em 1em .5em;
+    background: white;
+    border-radius: .5em;
+    margin: .2em;
+}
+
+.comment_buttons {
+    display: grid;
+    max-width: 28.8em;
+    grid-template-columns: 9em 9em 9em;
+    grid-row-gap: .1em;
+    text-align: center;
+    margin: auto 0;
+}
+
+form #delete_comment_button {
+    display: inline-block;
+    padding: .7em 1em .5em;
+    background: rgb(232, 74, 190);
+    border-radius: .5em;
+    margin: .2em;
+}
+
+form #delete_comment_button:hover {
     background-color: blueviolet;
 }

@@ -31,11 +31,10 @@ CREATE TABLE profile_informations (
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    profile_id INTEGER REFERENCES profiles ON DELETE CASCADE, --necessary?
+    profile_id INTEGER REFERENCES profiles ON DELETE CASCADE,
     sent_at TIMESTAMP
 );
 
--- Currently not implemented:
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     content TEXT,
@@ -48,25 +47,9 @@ CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
     profile_id INTEGER REFERENCES profiles ON DELETE CASCADE,
     post_id INTEGER REFERENCES posts ON DELETE CASCADE,
-    comment_id INTEGER REFERENCES comments ON DELETE CASCADE, -- Currently not implemented.
+    comment_id INTEGER REFERENCES comments ON DELETE CASCADE,
     sent_at TIMESTAMP
 );
-
---CREATE TABLE profile_informations (
---    id SERIAL PRIMARY KEY,
---    profile_id INTEGER UNIQUE REFERENCES profiles, --UNIQUE??
---    first_name TEXT, -- NOT NULL,
---    last_name TEXT, -- NOT NULL,
---    email TEXT,
---    institution TEXT,
---    city TEXT,
---    country TEXT, --place?
---    motto TEXT,
---    hobbies TEXT,
---    status_text TEXT,
---    profile_text TEXT
-    --created TIMESTAMP
---);
 
 -- Currently not implemented:
 CREATE TABLE messages (
